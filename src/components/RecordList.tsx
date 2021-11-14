@@ -19,20 +19,21 @@ import {
     DropResult
 } from 'react-beautiful-dnd';
 
-import {Record, RecordToEdit} from "../types/Record";
+import {EventRecord, EventRecordToEdit} from "../types/EventRecord";
 import EditDialog from "./EditDialog";
 import Message from "./Message";
 import {saveRecords} from "../utils/data";
+import StatsDialog from "./StatsDialog";
 
 interface AppProps {
-    records: Record[],
-    updateRecords: (records: Record[]) => void
+    records: EventRecord[],
+    updateRecords: (records: EventRecord[]) => void
 }
 
-type onEditRecord = (i: number, record: Record) => void;
+type onEditRecord = (i: number, record: EventRecord) => void;
 type onRemoveRecord = (i: number) => void;
 
-const renderRows = (records: Record[], onEdit: onEditRecord, onRemove: onRemoveRecord) =>
+const renderRows = (records: EventRecord[], onEdit: onEditRecord, onRemove: onRemoveRecord) =>
     records.map((record, i) => {
         return <Draggable
             draggableId={`${i}`}
@@ -58,12 +59,13 @@ const renderRows = (records: Record[], onEdit: onEditRecord, onRemove: onRemoveR
 
 function RecordList({ records, updateRecords } : AppProps) {
 
-    const initialRecordToEdit = { index: -1, record: {} };
+    const initialRecordToEdit = { index: -1, record: { event: { type: "" }, time: 0 } };
 
-    const [recordToEdit, setRecordToEdit] = useState<RecordToEdit>(initialRecordToEdit);
+    const [recordToEdit, setRecordToEdit] = useState<EventRecordToEdit>(initialRecordToEdit);
     const [message, setMessage] = useState("");
     const [editOpen, setEditOpen] = useState(false);
     const [messageOpen, setMessageOpen] = useState(false);
+    const [statsOpen, setStatsOpen] = useState(false);
 
     const showMessage = (msg: string) => {
         setMessageOpen(false);
@@ -78,16 +80,16 @@ function RecordList({ records, updateRecords } : AppProps) {
         setRecordToEdit(initialRecordToEdit);
     }
 
-    const handleCloseMessage = () => {
-        setMessageOpen(false);
-    }
+    const handleCloseMessage = () => setMessageOpen(false);
 
-    const onRecordEdit: onEditRecord = (index: number, record: Record) => {
+    const handleCloseStats = () => setStatsOpen(false);
+
+    const onRecordEdit: onEditRecord = (index: number, record: EventRecord) => {
         setRecordToEdit({ index, record });
         setEditOpen(true);
     }
 
-    const onRecordUpdate = (recordToEdit: RecordToEdit) => {
+    const onRecordUpdate = (recordToEdit: EventRecordToEdit) => {
         const { index, record } = recordToEdit;
         records[index] = record;
         updateRecords(records);
@@ -119,13 +121,14 @@ function RecordList({ records, updateRecords } : AppProps) {
                 <Toolbar>
                     <Stack spacing={2} direction="row">
                         <Button color="inherit" onClick={() => saveRecords(records)} variant="outlined">Save</Button>
-                        <Button color="inherit" onClick={() => {}} variant="outlined">Stats</Button>
+                        <Button color="inherit" onClick={() => setStatsOpen(true)} variant="outlined">Stats</Button>
                     </Stack>
                 </Toolbar>
             </AppBar>
             </Box>
 
             <Message open={messageOpen} message={message} handleClose={handleCloseMessage} />
+            <StatsDialog records={records} open={statsOpen} handleClose={handleCloseStats} />
             <EditDialog
                 data={recordToEdit}
                 open={editOpen}

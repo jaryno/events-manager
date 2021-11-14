@@ -1,6 +1,6 @@
-import {Record} from "../types/Record";
+import {EventRecord} from "../types/EventRecord";
 
-export const saveRecords = (records: Record[]) => {
+export const saveRecords = (records: EventRecord[]) => {
 
     const text = JSON.stringify(records);
     const name = "sample.json";

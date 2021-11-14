@@ -4,13 +4,13 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import {useEffect, useState} from "react";
-import {RecordToEdit} from "../types/Record";
+import {EventRecordToEdit} from "../types/EventRecord";
 import JSONEdit from "./JSONEdit";
 
 interface AppProps {
     open: boolean
-    data: RecordToEdit
-    handleSave: (record: RecordToEdit) => void
+    data: EventRecordToEdit
+    handleSave: (record: EventRecordToEdit) => void
     handleClose: () => void
 }
 

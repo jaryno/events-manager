@@ -3,13 +3,13 @@ import './App.css';
 import RecordList from "./components/RecordList";
 
 import data from './data/task.recording.json';
-import {Record} from "./types/Record";
+import {EventRecord} from "./types/EventRecord";
 
 function App() {
 
-    const [records, setRecords] = useState<Record[]>(data.records || []);
+    const [records, setRecords] = useState<EventRecord[]>(data.records || []);
 
-    const updateRecords = (records: Record[]) => {
+    const updateRecords = (records: EventRecord[]) => {
         setRecords([...records])
     }
 

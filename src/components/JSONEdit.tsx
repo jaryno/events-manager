@@ -2,10 +2,10 @@ import React, { Component } from "react";
 
 import JSONEditor, {JSONEditorOptions} from "jsoneditor";
 import "jsoneditor/dist/jsoneditor.css";
-import {RecordToEdit} from "../types/Record";
+import {EventRecordToEdit} from "../types/EventRecord";
 
 type AppProps = {
-    data: RecordToEdit;
+    data: EventRecordToEdit;
     onChangeJSON: (json: any) => void;
 };
 
