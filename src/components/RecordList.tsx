@@ -6,6 +6,10 @@ import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import {TableBody} from "@mui/material";
 import Button from '@mui/material/Button';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
 
 import {formatTimestamp} from "../utils/time";
 import {
@@ -18,6 +22,7 @@ import {
 import {Record, RecordToEdit} from "../types/Record";
 import EditDialog from "./EditDialog";
 import Message from "./Message";
+import {saveRecords} from "../utils/data";
 
 interface AppProps {
     records: Record[],
@@ -108,7 +113,18 @@ function RecordList({ records, updateRecords } : AppProps) {
     }
 
     return (
-        <div>
+        <div style={{ marginTop: '70px' }}>
+            <Box sx={{ flexGrow: 1 }}>
+            <AppBar position="fixed">
+                <Toolbar>
+                    <Stack spacing={2} direction="row">
+                        <Button color="inherit" onClick={() => saveRecords(records)} variant="outlined">Save</Button>
+                        <Button color="inherit" onClick={() => {}} variant="outlined">Stats</Button>
+                    </Stack>
+                </Toolbar>
+            </AppBar>
+            </Box>
+
             <Message open={messageOpen} message={message} handleClose={handleCloseMessage} />
             <EditDialog
                 data={recordToEdit}
