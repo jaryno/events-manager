@@ -7,3 +7,8 @@ export interface Record {
     },
     time?: number
 }
+
+export interface RecordToEdit {
+    index: number,
+    record: Record
+}
