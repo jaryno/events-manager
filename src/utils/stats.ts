@@ -101,7 +101,7 @@ export const calcStats = (records: EventRecord[]): EventStats => {
     return {
         minTime: minDelay === Number.MAX_VALUE ? -1 : minDelay,
         maxTime: maxDelay,
-        avgTime: timeDelaySum / len,
+        avgTime: len > 1 ? (timeDelaySum / len - 1) : 0,
         totalTime: totalTime,
         eventsCount: Object.keys(eventsChunks).length,
         longestSequenceCount: longestSeqMax,
