@@ -1,9 +1,12 @@
 import {EventRecord} from "../types/EventRecord";
 import EventStats from "../types/EventStats";
 import {sortRecords} from "./sort";
+import {msToTime} from "./helpers";
 
 // Stats will be calculated in one loop due to performance
 export const calcStats = (records: EventRecord[]): EventStats => {
+
+    const startTime = performance.now();
 
     const stats: EventStats = {
         minTime: -1,
@@ -91,6 +94,9 @@ export const calcStats = (records: EventRecord[]): EventStats => {
 
     // calc total time of the events
     totalTime += records[records.length - 1].time - records[0].time;
+
+    const endTime = performance.now();
+    console.log(`Calc stats took ${msToTime(endTime - startTime)}`);
 
     return {
         minTime: minDelay === Number.MAX_VALUE ? -1 : minDelay,
