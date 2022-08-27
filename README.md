@@ -14,7 +14,7 @@ To download (edited) events, click on button "Save".
 To view stats, click on button "Stats".
 
 I tried to calc all stats with complexity O(n) at one loop, but it is needed to sort data before calc stats.
-For this purpose I create Quick Sort function, but JS sort function seems to has better performance. 
+For this purpose I created Quick Sort function, but JS sort function seems to have better performance. 
 
 I was thinking to move calculations on server (database) for better performance, but this depends on amount of data.
 Since there are only thousands of events, it is possible to calc data on client.
